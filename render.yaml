@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: muthu-kumar-photography
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app.app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATA_DIR
+        value: /opt/render/project/src/data
+      - key: UPLOAD_DIR
+        value: /opt/render/project/src/data/uploads
+    disk:
+      name: portfolio-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
